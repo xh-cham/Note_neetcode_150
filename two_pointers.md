@@ -1,5 +1,7 @@
 # Two Pointers
 
+- [上一層](/note_nc150.md)
+
 ## Table of Contents
 
 - [Two Pointers](#two-pointers)
@@ -31,7 +33,7 @@
   - 使用 `tolower` 轉換成小寫，以及使用 `isalnum` 檢查是否為 alphanumeric characters。
   - 從兩端收斂，想到使用雙指針。
 - 複雜度：
-  - 時間複雜度：排序需要 $O(n\log n)$，遍歷需要 $O(n)$，因此總時間複雜度為 $O(n \log n)$。
+  - 時間複雜度：遍歷需要 $O(n)$，總時間複雜度為 $O(n \log n)$。
   - 空間複雜度：只有使用一些額外變數， $O(1)$。
 
 ## 167. Two Sum II - Input Array Is Sorted
@@ -99,7 +101,7 @@
 ### 解法 1
 
 - 原本考慮使用 sliding window（ `left` 從 0 開始，`right` 從 `left + 1` 開始），但光靠 `left` 指針遍歷過的元素沒辦法確定 `left` 指針是否為有效的解。
-- 換個角度思考，每個 index 上的水量是由左邊的最大高度和右邊的最大高度所決定的。準確來說，由這兩個值中的最小值決定。
+- 換個角度思考，**每個 index 上的水量是由左邊的最大高度和右邊的最大高度所決定的**。準確來說，由這兩個值中的最小值決定。
 - 因此可以使用 **prefix maximum** 和 **suffix maximum** 的概念，記錄每個 index 左邊和右邊的最大高度。
 - 如此一來，對於每個 index `i`，水量可以計算為 `min(prefixMax[i], suffixMax[i]) - height[i]`。
 - 關鍵知識點：
@@ -116,9 +118,9 @@
 - 移動之前判斷 `leftMax` 或 `rightMax` 是否需要更新。只有當不需要更新時，才計算水量。
 - 解釋如下：
 
-  - 如果 `height[left]` 小於等於 `height[right]`，因為 `height[left] <= height[right] <= rightMax`，則該位置的水量由 `leftMax` 與 `height[left]` 的差值決定。不管右邊的高度如何，`left` 指針所指的水量都不受右邊影響。
+  - 如果 `height[left]` 小於等於 `height[right]`，則不管右邊的高度如何，`left` 指針所指的水量都不受右邊影響。該位置的水量由 `leftMax` 與 `height[left]` 的差值決定。
   - 承上，如果 `height[left]` 大於 `leftMax`，則該位置的水量為 0；反之，則水量為 `leftMax - height[left]`。
-  - `height[left]` 大於 `height[right]` 時同理。
+  - `height[left]` 大於 `height[right]` 時同理，只是換由 `rightMax` 決定水位。
   <details>
   <summary>C++ 程式碼</summary>
 

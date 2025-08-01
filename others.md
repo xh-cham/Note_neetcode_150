@@ -1,5 +1,7 @@
 # Other Notes
 
+- [上一層](/note_nc150.md)
+
 - 當 `std::unordered_map` 的 key 不存在時，直接存取 `myMap[someKey]` 會自動呼叫預設的 constructor 並插入相應的 `pair<>`。
   - 例如：
     ```cpp
